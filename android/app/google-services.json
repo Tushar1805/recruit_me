@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "990174100048",
+    "project_id": "avestan-37ab4",
+    "storage_bucket": "avestan-37ab4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990174100048:android:3f285c778aa6f878c42f55",
+        "android_client_info": {
+          "package_name": "com.example.avestan_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0XAEvFgQds-Ny5JIaSxOGILGP79K3V8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

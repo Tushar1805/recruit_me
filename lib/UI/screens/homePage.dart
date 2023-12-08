@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:avestan_test/Screens/settings.dart';
+import 'package:avestan_test/UI/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
