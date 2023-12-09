@@ -1,3 +1,4 @@
+import 'package:avestan_test/UI/screens/apply_screen.dart';
 import 'package:avestan_test/UI/screens/home_page.dart';
 import 'package:avestan_test/UI/screens/payments.dart';
 import 'package:avestan_test/logic/jobs_cubit/jobs_cubit.dart';
@@ -15,6 +16,13 @@ class Routes {
             builder: (context) => BlocProvider(
                   create: (context) => JobsCubit(),
                   child: HomePage(),
+                ));
+
+      case '/apply':
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => JobsCubit(),
+                  child: ApplyScreen(),
                 ));
 
       case '/payment':

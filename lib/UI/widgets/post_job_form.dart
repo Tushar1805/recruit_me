@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostJob extends StatelessWidget {
-  DateTime selectedDate = DateTime.now();
   static TextEditingController jobIdController = TextEditingController();
   static TextEditingController titleController = TextEditingController();
   static TextEditingController summaryController = TextEditingController();
@@ -18,9 +17,9 @@ class PostJob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = BlocProvider.of<JobsCubit>(context);
-
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(top: 10),
@@ -64,7 +63,8 @@ class PostJob extends StatelessWidget {
                 lines: 1,
                 provider: provider,
                 fun: provider.postFormIDChange,
-                initValue: provider.jobId),
+                initValue: provider.jobId,
+                type: TextInputType.number),
             SizedBox(height: 15),
             textFieldName(name: "Title", compulsory: true),
             SizedBox(
@@ -79,7 +79,8 @@ class PostJob extends StatelessWidget {
                 lines: 1,
                 provider: provider,
                 fun: provider.postFormTitleChange,
-                initValue: provider.title),
+                initValue: provider.title,
+                type: TextInputType.text),
             SizedBox(height: 15),
             textFieldName(name: "Summary", compulsory: true),
             SizedBox(
@@ -94,7 +95,8 @@ class PostJob extends StatelessWidget {
                 lines: 2,
                 provider: provider,
                 fun: provider.postFormSummaryChange,
-                initValue: provider.summary),
+                initValue: provider.summary,
+                type: TextInputType.text),
             SizedBox(height: 10),
             textFieldName(name: "Requirement", compulsory: true),
             SizedBox(
@@ -109,7 +111,8 @@ class PostJob extends StatelessWidget {
                 lines: 1,
                 provider: provider,
                 fun: provider.postFormRequirementChange,
-                initValue: provider.requirements),
+                initValue: provider.requirements,
+                type: TextInputType.text),
             SizedBox(height: 10),
             textFieldName(name: "Skills", compulsory: true),
             SizedBox(
@@ -124,7 +127,8 @@ class PostJob extends StatelessWidget {
                 lines: 1,
                 provider: provider,
                 fun: provider.postFormSkillChange,
-                initValue: provider.skills),
+                initValue: provider.skills,
+                type: TextInputType.text),
             SizedBox(height: 10),
             textFieldName(name: "Salary", compulsory: true),
             SizedBox(
@@ -139,7 +143,8 @@ class PostJob extends StatelessWidget {
                 lines: 2,
                 provider: provider,
                 fun: provider.postFormSalaryChange,
-                initValue: provider.salary),
+                initValue: provider.salary,
+                type: TextInputType.number),
             SizedBox(height: 10),
             textFieldName(name: "Deadline", compulsory: true),
             SizedBox(

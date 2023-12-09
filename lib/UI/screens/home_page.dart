@@ -2,7 +2,7 @@ import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
 import 'package:avestan_test/UI/widgets/appBar.dart';
 import 'package:avestan_test/UI/widgets/drawer.dart';
-import 'package:avestan_test/UI/widgets/post_job.dart';
+import 'package:avestan_test/UI/widgets/post_job_form.dart';
 import 'package:avestan_test/UI/widgets/posted_jobs.dart';
 import 'package:flutter/material.dart';
 

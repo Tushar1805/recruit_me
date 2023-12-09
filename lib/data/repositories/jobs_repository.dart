@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:avestan_test/data/models/job_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class JobsRepository {
   final firestore = FirebaseFirestore.instance;
+  final firebaseStorage = FirebaseStorage.instance;
+  UploadTask? uploadTask;
 
   Future<void> postJob({
     required jobId,
@@ -27,6 +33,28 @@ class JobsRepository {
     });
   }
 
+  //? Action : 0 - No Action, 1 - Rejected
+  //? Status: 0 - Pending, 1- inProgress, 2 - Approve
+  Future<void> applyToJob({
+    required uid,
+    required name,
+    required email,
+    required cv,
+  }) async {
+    await firestore.collection("jobs").doc(uid).update({
+      "applications": FieldValue.arrayUnion([
+        {
+          "name": name,
+          "email": email,
+          "cv": cv,
+          "interviewer": "",
+          "status": 0,
+          "action": 0
+        }
+      ])
+    });
+  }
+
   Future<List<Job>> getAllJobs() async {
     return (await firestore
             .collection('jobs')
@@ -35,5 +63,32 @@ class JobsRepository {
         .docs
         .map((item) => Job.fromJson(item.data()))
         .toList();
+  }
+
+  Future<List<String>> getAllJobsUid() async {
+    List<String> list = [];
+    await firestore
+        .collection('jobs')
+        .orderBy("deadline", descending: false)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              list.add(element.id);
+            }));
+    return list;
+  }
+
+  Future<String?> uploadFile(PlatformFile pickedFile) async {
+    final path = "cv/${pickedFile.name}";
+    final file = File(pickedFile.path!);
+
+    final ref = firebaseStorage.ref().child(path);
+    uploadTask = ref.putFile(file);
+
+    final snapshot = await uploadTask!.whenComplete(() => {});
+
+    final url = await snapshot.ref.getDownloadURL();
+
+    print("Download Link: $url");
+    return url;
   }
 }

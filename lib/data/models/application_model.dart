@@ -1,12 +1,10 @@
-
-
 class Application {
   final String name;
   final String email;
-  final int status;
+  final int status; // 0 - Pending, 1- inProgress, 2 - Approve
   final String cv;
   final String interviewer;
-  final int action;
+  final int action; // 0 - No Action, 1 - Rejected
 
   Application({
     required this.name,

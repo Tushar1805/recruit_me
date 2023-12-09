@@ -88,7 +88,10 @@ Widget drawer(BuildContext context) {
                 color: mainColor7,
               ),
               title: Text('Apply'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/apply');
+              },
             ),
             ListTile(
               leading: Icon(
@@ -96,7 +99,10 @@ Widget drawer(BuildContext context) {
                 color: mainColor7,
               ),
               title: Text('Payments'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/payment');
+              },
             ),
             const Divider(
               color: Colors.black45,
