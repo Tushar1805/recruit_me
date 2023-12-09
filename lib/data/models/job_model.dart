@@ -10,6 +10,7 @@ class Job {
   final String jobId;
   final String title;
   final String summary;
+  final String salary;
   final String responsibility;
   final String requirements;
   final String skills;
@@ -20,6 +21,7 @@ class Job {
     required this.jobId,
     required this.title,
     required this.summary,
+    required this.salary,
     required this.responsibility,
     required this.requirements,
     required this.skills,
@@ -31,7 +33,8 @@ class Job {
         jobId: json["jobID"],
         title: json["title"],
         summary: json["summary"],
-        responsibility: json["responsibility"],
+        salary: json["salary"],
+        responsibility: json['responsibility'],
         requirements: json["requirements"],
         skills: json["Skills"],
         deadline: json["deadline"],
@@ -43,6 +46,7 @@ class Job {
         "jobID": jobId,
         "title": title,
         "summary": summary,
+        "salary": salary,
         "responsibility": responsibility,
         "requirements": requirements,
         "Skills": skills,

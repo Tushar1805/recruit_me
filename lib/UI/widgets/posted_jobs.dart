@@ -13,7 +13,7 @@ class PostedJobs extends StatelessWidget {
     final provider = BlocProvider.of<JobsCubit>(context);
     return BlocBuilder<JobsCubit, JobsState>(
       builder: (context, state) {
-        if (state is JobsPostFetchingtate) {
+        if (state is JobsPostFetchingState) {
           return Center(
             child: CircularProgressIndicator(),
           );
@@ -34,27 +34,51 @@ class PostedJobs extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.only(
-                                      left: 20, right: 10, top: 20),
-                                  child: Text(
-                                    provider.jobs![index].jobId,
-                                    style: subHeadingStyle(),
-                                  )),
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.only(
-                                      left: 20, right: 10, top: 10),
-                                  child: Text(provider.jobs![index].title,
-                                      style: jobTitleTextStyle())),
-                            ],
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding:
+                                  EdgeInsets.only(left: 20, right: 10, top: 20),
+                              child: Text(
+                                "#${provider.jobs![index].jobId}",
+                                style: subHeadingStyle(),
+                              )),
+                          Flexible(
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              padding:
+                                  EdgeInsets.only(left: 20, right: 20, top: 20),
+                              child: RichText(
+                                text: TextSpan(
+                                    text: provider.jobs![index].salary,
+                                    style: TextStyle(
+                                        color: mainColor,
+                                        fontFamily: "Roboto",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    children: [
+                                      TextSpan(
+                                        text: " / Month",
+                                        style: TextStyle(
+                                            color: mainColor5,
+                                            fontFamily: "Roboto",
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ]),
+                              ),
+                            ),
                           ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding:
+                                  EdgeInsets.only(left: 20, right: 10, top: 10),
+                              child: Text(provider.jobs![index].title,
+                                  style: jobTitleTextStyle())),
                           Flexible(
                             child: Container(
                                 alignment: Alignment.topRight,
@@ -62,7 +86,7 @@ class PostedJobs extends StatelessWidget {
                                     left: 20, right: 20, top: 20),
                                 child: Text(provider.jobs![index].deadline,
                                     style: jobDeadlineTextStyle())),
-                          )
+                          ),
                         ],
                       ),
                       Flexible(

@@ -1,5 +1,5 @@
 import 'package:avestan_test/data/models/job_model.dart';
-import 'package:avestan_test/data/repositories/jobs_reposittory.dart';
+import 'package:avestan_test/data/repositories/jobs_repository.dart';
 import 'package:avestan_test/logic/jobs_cubit/jobs_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ class JobsCubit extends Cubit<JobsState> {
   String? jobId;
   String? title;
   String? summary;
-  String? responsibility;
+  String? salary;
   String? requirements;
   String? skills;
   String? deadline;
@@ -38,8 +38,8 @@ class JobsCubit extends Cubit<JobsState> {
     this.requirements = requirements;
   }
 
-  void postFormResponsibilityChange(responsibility) {
-    this.responsibility = responsibility;
+  void postFormSalaryChange(salary) {
+    this.salary = salary;
   }
 
   void postFormSkillChange(skills) {
@@ -54,7 +54,7 @@ class JobsCubit extends Cubit<JobsState> {
     required jobId,
     required title,
     required summary,
-    required responsibility,
+    required salary,
     required requirements,
     required skills,
     required deadline,
@@ -65,8 +65,8 @@ class JobsCubit extends Cubit<JobsState> {
       emit(JobsPostFormErrorState("Please Enter the title"));
     } else if (summary == "") {
       emit(JobsPostFormErrorState("Please Enter the summary"));
-    } else if (responsibility == "") {
-      emit(JobsPostFormErrorState("Please Enter the responsibility"));
+    } else if (salary == "") {
+      emit(JobsPostFormErrorState("Please Enter the salary"));
     } else if (requirements == "") {
       emit(JobsPostFormErrorState("Please Enter the requirements"));
     } else if (skills == "") {
@@ -82,7 +82,7 @@ class JobsCubit extends Cubit<JobsState> {
     jobId = "";
     title = "";
     summary = "";
-    responsibility = "";
+    salary = "";
     requirements = "";
     skills = "";
     deadline = "";
@@ -104,7 +104,7 @@ class JobsCubit extends Cubit<JobsState> {
         jobId: jobId,
         title: title,
         summary: summary,
-        responsibility: responsibility,
+        salary: salary,
         requirements: requirements,
         skills: skills,
         deadline: deadline);
@@ -116,7 +116,7 @@ class JobsCubit extends Cubit<JobsState> {
         jobId: jobId,
         title: title,
         summary: summary,
-        responsibility: responsibility,
+        salary: salary,
         requirements: requirements,
         skills: skills,
         deadline: deadline,
@@ -126,8 +126,8 @@ class JobsCubit extends Cubit<JobsState> {
   }
 
   Future<void> getAllJobs() async {
-    emit(JobsPostFetchingtate());
+    emit(JobsPostFetchingState());
     jobs = await repository.getAllJobs();
-    emit(JobsPostFetchedtate());
+    emit(JobsPostFetchedState());
   }
 }

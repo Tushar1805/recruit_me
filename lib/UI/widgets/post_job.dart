@@ -10,8 +10,7 @@ class PostJob extends StatelessWidget {
   static TextEditingController jobIdController = TextEditingController();
   static TextEditingController titleController = TextEditingController();
   static TextEditingController summaryController = TextEditingController();
-  static TextEditingController responsibilityController =
-      TextEditingController();
+  static TextEditingController salaryController = TextEditingController();
   static TextEditingController requirementController = TextEditingController();
   static TextEditingController skillsController = TextEditingController();
   static TextEditingController deadlineController = TextEditingController();
@@ -97,21 +96,6 @@ class PostJob extends StatelessWidget {
                 fun: provider.postFormSummaryChange,
                 initValue: provider.summary),
             SizedBox(height: 10),
-            textFieldName(name: "Responsibility", compulsory: true),
-            SizedBox(
-              height: 10,
-            ),
-            textField(
-                width: width,
-                height: 50,
-                controller: responsibilityController,
-                label: "Responsibility",
-                hint: 'Enter Responsibility',
-                lines: 2,
-                provider: provider,
-                fun: provider.postFormResponsibilityChange,
-                initValue: provider.responsibility),
-            SizedBox(height: 10),
             textFieldName(name: "Requirement", compulsory: true),
             SizedBox(
               height: 10,
@@ -141,6 +125,21 @@ class PostJob extends StatelessWidget {
                 provider: provider,
                 fun: provider.postFormSkillChange,
                 initValue: provider.skills),
+            SizedBox(height: 10),
+            textFieldName(name: "Salary", compulsory: true),
+            SizedBox(
+              height: 10,
+            ),
+            textField(
+                width: width,
+                height: 50,
+                controller: salaryController,
+                label: "Salary",
+                hint: 'Enter Salary',
+                lines: 2,
+                provider: provider,
+                fun: provider.postFormSalaryChange,
+                initValue: provider.salary),
             SizedBox(height: 10),
             textFieldName(name: "Deadline", compulsory: true),
             SizedBox(
@@ -230,7 +229,7 @@ class PostJob extends StatelessWidget {
                           jobIdController.clear();
                           titleController.clear();
                           summaryController.clear();
-                          responsibilityController.clear();
+                          salaryController.clear();
                           requirementController.clear();
                           skillsController.clear();
                           deadlineController.clear();

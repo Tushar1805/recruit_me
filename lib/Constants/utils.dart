@@ -33,7 +33,7 @@ TextStyle jobDeadlineTextStyle() {
       fontFamily: "roboto",
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: mainColor5);
+      color: mainColor7);
 }
 
 //* Home Page Decorations
@@ -109,14 +109,13 @@ Container textField(
     width: width,
     height: lines * height,
     child: TextFormField(
-      // initialValue: "Tushar",
       onChanged: (val) {
         fun(val);
         provider.postFormValidate(
             jobId: provider.jobId,
             title: provider.title,
             summary: provider.summary,
-            responsibility: provider.responsibility,
+            salary: provider.salary,
             requirements: provider.requirements,
             skills: provider.skills,
             deadline: provider.deadline);

@@ -8,8 +8,8 @@ class JobsPostSubmittingState extends JobsState {}
 
 class JobsPostedState extends JobsState{}
 
-class JobsPostFetchingtate extends JobsState {}
-class JobsPostFetchedtate extends JobsState {}
+class JobsPostFetchingState extends JobsState {}
+class JobsPostFetchedState extends JobsState {}
 
 class JobsPostFormValidState extends JobsState {}
 
