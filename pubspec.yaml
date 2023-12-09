@@ -30,6 +30,8 @@ dependencies:
   timeline_tile: ^2.0.0
   flutter_bloc: ^7.2.0
   cloud_firestore: ^1.0.3
+  connectivity: ^3.0.6
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

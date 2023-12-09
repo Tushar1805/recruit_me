@@ -1,16 +1,18 @@
 import 'dart:ui';
-import 'package:avestan_test/UI/screens/settings.dart';
+import 'package:avestan_test/Constants/constants.dart';
+import 'package:avestan_test/Constants/utils.dart';
+import 'package:avestan_test/UI/widgets/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Payment extends StatefulWidget {
+  const Payment({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Payment> createState() => _PaymentState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PaymentState extends State<Payment> {
   // status
   // Application Submitted - start
   // In Progress - inProgress
@@ -41,29 +43,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios_new),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Settings()));
-                },
-              ),
-            ],
+      appBar: appBar(
+          row: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            onPressed: () {},
           ),
-        ),
-      ),
+        ],
+      )),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
@@ -76,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.5,
                 padding: EdgeInsets.only(top: 12, bottom: 12),
                 decoration: ShapeDecoration(
-                  color: Color.fromRGBO(28, 79, 122, 1),
+                  color: mainColor,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 0.50, color: Color(0xFFD2D2D2)),
                     borderRadius: BorderRadius.circular(5),
@@ -193,10 +182,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 child: Text(
                   "Application Status",
-                  style: TextStyle(
-                      fontFamily: "roboto",
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                  style: headingStyle(),
                 ),
               ),
               // SizedBox(height: 10),
