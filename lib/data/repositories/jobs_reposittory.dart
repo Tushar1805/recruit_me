@@ -1,3 +1,4 @@
+import 'package:avestan_test/data/models/job_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class JobsRepository {
@@ -23,5 +24,15 @@ class JobsRepository {
       "deadline": deadline,
       "applications": [],
     });
+  }
+
+  Future<List<Job>> getAllJobs() async {
+    return (await firestore
+            .collection('jobs')
+            .orderBy("deadline", descending: false)
+            .get())
+        .docs
+        .map((item) => Job.fromJson(item.data()))
+        .toList();
   }
 }

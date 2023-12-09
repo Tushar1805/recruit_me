@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 
 class JobsCubit extends Cubit<JobsState> {
   DateTime selectedDate = DateTime.now();
-  JobsCubit() : super(JobsInitialState());
+  JobsCubit() : super(JobsInitialState()) {
+    getAllJobs();
+  }
 
   final repository = JobsRepository();
 
@@ -69,7 +71,7 @@ class JobsCubit extends Cubit<JobsState> {
       emit(JobsPostFormErrorState("Please Enter the requirements"));
     } else if (skills == "") {
       emit(JobsPostFormErrorState("Please Enter the skills"));
-    } else if (deadline == "" || deadline == null) {
+    } else if (deadline == "") {
       emit(JobsPostFormErrorState("Please Enter the deadline"));
     } else {
       emit(JobsPostFormValidState());
@@ -119,6 +121,13 @@ class JobsCubit extends Cubit<JobsState> {
         skills: skills,
         deadline: deadline,
         applications: []);
+    await getAllJobs();
     emit(JobsPostedState());
+  }
+
+  Future<void> getAllJobs() async {
+    emit(JobsPostFetchingtate());
+    jobs = await repository.getAllJobs();
+    emit(JobsPostFetchedtate());
   }
 }

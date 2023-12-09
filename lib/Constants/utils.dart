@@ -7,6 +7,35 @@ TextStyle headingStyle() {
       fontFamily: "roboto", fontSize: 20, fontWeight: FontWeight.bold);
 }
 
+TextStyle subHeadingStyle() {
+  return TextStyle(
+      fontFamily: "roboto", fontSize: 16, fontWeight: FontWeight.bold);
+}
+
+TextStyle jobTitleTextStyle() {
+  return TextStyle(
+      fontFamily: "roboto",
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: mainColor);
+}
+
+TextStyle jobSimpleTextStyle() {
+  return TextStyle(
+      fontFamily: "roboto",
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+      color: Colors.grey);
+}
+
+TextStyle jobDeadlineTextStyle() {
+  return TextStyle(
+      fontFamily: "roboto",
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: mainColor5);
+}
+
 //* Home Page Decorations
 
 ShapeDecoration activeTabShapeDecoration() {
