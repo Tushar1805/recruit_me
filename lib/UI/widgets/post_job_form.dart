@@ -88,7 +88,7 @@ class PostJob extends StatelessWidget {
             ),
             textField(
                 width: width,
-                height: 50,
+                height: 40,
                 controller: summaryController,
                 label: "Summary",
                 hint: 'Enter Summary',
@@ -140,7 +140,7 @@ class PostJob extends StatelessWidget {
                 controller: salaryController,
                 label: "Salary",
                 hint: 'Enter Salary',
-                lines: 2,
+                lines: 1,
                 provider: provider,
                 fun: provider.postFormSalaryChange,
                 initValue: provider.salary,

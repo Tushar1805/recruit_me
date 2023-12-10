@@ -1,8 +1,8 @@
 import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
 import 'package:avestan_test/UI/widgets/apply_jop.dart';
-import 'package:avestan_test/logic/jobs_cubit/jobs_cubit.dart';
-import 'package:avestan_test/logic/jobs_cubit/jobs_states.dart';
+import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_cubit.dart';
+import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +13,7 @@ class ApplyScreen extends StatelessWidget {
   Widget build(BuildContext buildcontext) {
     final width = MediaQuery.of(buildcontext).size.width;
     final height = MediaQuery.of(buildcontext).size.height;
-    final provider = BlocProvider.of<JobsCubit>(buildcontext);
+    final provider = BlocProvider.of<ApplyJobCubit>(buildcontext);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
@@ -40,9 +40,9 @@ class ApplyScreen extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: BlocBuilder<JobsCubit, JobsState>(
+        child: BlocBuilder<ApplyJobCubit, ApplyJobState>(
           builder: (context, state) {
-            if (state is JobsPostFetchingState) {
+            if (state is JobsFetchingState) {
               return Center(
                 child: CircularProgressIndicator(),
               );
@@ -176,7 +176,7 @@ class ApplyScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

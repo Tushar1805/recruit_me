@@ -1,8 +1,7 @@
 import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
-import 'package:avestan_test/UI/widgets/success_dialog.dart';
-import 'package:avestan_test/logic/jobs_cubit/jobs_cubit.dart';
-import 'package:avestan_test/logic/jobs_cubit/jobs_states.dart';
+import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_cubit.dart';
+import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +29,7 @@ class ApplyToJob extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = BlocProvider.of<JobsCubit>(context);
+    final provider = BlocProvider.of<ApplyJobCubit>(context);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Dialog(
@@ -74,9 +73,9 @@ class ApplyToJob extends StatelessWidget {
           Positioned(
             bottom: 0,
             left: width * 0.2,
-            child: BlocBuilder<JobsCubit, JobsState>(
+            child: BlocBuilder<ApplyJobCubit, ApplyJobState>(
               builder: (context, state) {
-                if ((state is JobsApplyFormValidState)) {
+                if ((state is JobApplyFormValidState)) {
                   return GestureDetector(
                     child: Container(
                       width: width * 0.4,
@@ -93,19 +92,28 @@ class ApplyToJob extends StatelessWidget {
                         style: TextStyle(
                             fontFamily: "Roboto",
                             fontSize: 14,
-                            color: (state is JobsApplyFormValidState)
+                            color: (state is JobApplyFormValidState)
                                 ? Colors.white
                                 : mainColor),
                       ),
                     ),
                     onTap: () => provider.applyToJob(uid: uid),
                   );
-                } else if (state is JobsAppliedState) {
-                  Navigator.of(context).pop();
-                  nameController.clear();
-                  emailController.clear();
-                  provider.clearApply();
-                  return Success();
+                } else if (state is ApplyJobSubmittingState) {
+                  return Container(
+                    width: width * 0.4,
+                    height: height * 0.06,
+                    alignment: Alignment.center,
+                    decoration: ShapeDecoration(
+                      color: mainColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  );
                 } else {
                   return Container();
                 }
@@ -139,7 +147,7 @@ class CardDialog extends StatelessWidget {
   final double width;
   final double height;
   final TextEditingController nameController;
-  final JobsCubit provider;
+  final ApplyJobCubit provider;
   final TextEditingController emailController;
 
   @override
@@ -226,9 +234,9 @@ class CardDialog extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            BlocBuilder<JobsCubit, JobsState>(
+            BlocBuilder<ApplyJobCubit, ApplyJobState>(
               builder: (context, state) {
-                if (state is JobsApplyFormErrorState) {
+                if (state is JobApplyFormErrorState) {
                   return Container(
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(bottom: 5, top: 5, left: 20),
@@ -269,65 +277,14 @@ class CardDialog extends StatelessWidget {
               provider: provider,
               fun: provider.applyEmailChange,
               initValue: provider.email,
-              type: TextInputType.emailAddress,
-            ),
-            BlocBuilder<JobsCubit, JobsState>(
-              builder: (context, state) {
-                if (state is JobsApplyFormErrorState) {
-                  return Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(bottom: 5, top: 5, left: 20),
-                    child: RichText(
-                      text: TextSpan(
-                          text: "Note:",
-                          style: TextStyle(
-                              color: mainColor,
-                              fontFamily: "Roboto",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                          children: [
-                            TextSpan(
-                              text: " Pleas upload PDF file",
-                              style: TextStyle(
-                                  color: mainColor5,
-                                  fontFamily: "Roboto",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400),
-                            )
-                          ]),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
+              type: TextInputType.text,
             ),
 
-            provider.pickedFile == null
-                ? Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(bottom: 5, top: 10, left: 20),
-                    child: RichText(
-                      text: TextSpan(
-                          text: "Note:",
-                          style: TextStyle(
-                              color: mainColor,
-                              fontFamily: "Roboto",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                          children: [
-                            TextSpan(
-                              text: " Please upload PDF file",
-                              style: TextStyle(
-                                  color: mainColor5,
-                                  fontFamily: "Roboto",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400),
-                            )
-                          ]),
-                    ),
-                  )
-                : Row(
+            BlocBuilder<ApplyJobCubit, ApplyJobState>(
+              builder: (context, state) {
+                if (state is JobFileUploadedState ||
+                    state is JobApplyFormValidState) {
+                  return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
@@ -361,9 +318,54 @@ class CardDialog extends StatelessWidget {
                         ),
                       )
                     ],
-                  ),
-            provider.pickedFile == null
-                ? GestureDetector(
+                  );
+                } else if (state is JobApplyFormErrorState) {
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(bottom: 10, top: 10, left: 20),
+                    child: RichText(
+                      text: TextSpan(
+                          text: "Note:",
+                          style: TextStyle(
+                              color: mainColor,
+                              fontFamily: "Roboto",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
+                          children: [
+                            TextSpan(
+                              text: " Please upload only PDF file",
+                              style: TextStyle(
+                                  color: mainColor5,
+                                  fontFamily: "Roboto",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ]),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+
+            BlocBuilder<ApplyJobCubit, ApplyJobState>(
+              builder: (context, state) {
+                if (state is JobFileUploadingState) {
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(bottom: 10, top: 10, left: 20),
+                    child: Text(
+                      "Uploading File.....",
+                      style: TextStyle(
+                          color: mainColor,
+                          fontFamily: "Roboto",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  );
+                } else {
+                  return GestureDetector(
                     onTap: () => provider.selectFile(),
                     child: Container(
                       height: height * 0.05,
@@ -384,8 +386,32 @@ class CardDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
-                : SizedBox(),
+                  );
+                }
+              },
+            ),
+
+            BlocListener<ApplyJobCubit, ApplyJobState>(
+              listener: (context, state) {
+                if (state is JobAppliedState) {
+                  Navigator.of(context).pop();
+                  nameController.clear();
+                  emailController.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      "Applied for the Job of $title",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 14,
+                          color: Colors.white),
+                    ),
+                    backgroundColor: Colors.green,
+                  ));
+                  provider.clearApply();
+                }
+              },
+              child: Container(),
+            ),
             SizedBox(
               height: 40,
             ),

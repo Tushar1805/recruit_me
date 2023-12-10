@@ -1,8 +1,6 @@
 import 'package:avestan_test/data/models/job_model.dart';
 import 'package:avestan_test/data/repositories/jobs_repository.dart';
 import 'package:avestan_test/logic/jobs_cubit/jobs_states.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -25,12 +23,6 @@ class JobsCubit extends Cubit<JobsState> {
   String? requirements;
   String? skills;
   String? deadline;
-
-  //* Apply Job Form Variables
-  String? name;
-  String? email;
-  String? cv;
-  PlatformFile? pickedFile;
 
   //* Post form Job Setters
   void postFormIDChange(id) {
@@ -59,15 +51,6 @@ class JobsCubit extends Cubit<JobsState> {
 
   void postFormDeadlineChange(deadline) {
     this.deadline = deadline;
-  }
-
-  //* Apply Job Setters
-  void applyNameChange(name) {
-    this.name = name;
-  }
-
-  void applyEmailChange(email) {
-    this.email = email;
   }
 
   //* Post form Job Validator
@@ -99,19 +82,6 @@ class JobsCubit extends Cubit<JobsState> {
     }
   }
 
-  //* Apply Job Form Validator
-  void applyFormValidate({required name, required email, required cv}) {
-    if (name == "") {
-      emit(JobsApplyFormErrorState("Please Enter the name"));
-    } else if (email != "" && EmailValidator.validate(email) == false) {
-      emit(JobsApplyFormErrorState("Please Enter a valid email"));
-    } else if (cv == "") {
-      emit(JobsApplyFormErrorState("Please Enter the CV"));
-    } else {
-      emit(JobsApplyFormValidState());
-    }
-  }
-
   void clearAll() {
     jobId = "";
     title = "";
@@ -120,14 +90,6 @@ class JobsCubit extends Cubit<JobsState> {
     requirements = "";
     skills = "";
     deadline = "";
-    emit(JobsInitialState());
-  }
-
-  void clearApply() {
-    name = "";
-    email = "";
-    cv = "";
-    pickedFile = null;
     emit(JobsInitialState());
   }
 
@@ -152,32 +114,6 @@ class JobsCubit extends Cubit<JobsState> {
         deadline: deadline);
   }
 
-  //* Upload CV functionality
-  Future<void> selectFile() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
-      pickedFile = result!.files.first;
-      await uploadFile();
-      // emit(JobsFileUploadedState(pickedFile!));
-    } catch (e) {
-      throw "Error: Uploading the file: ${e.toString()}";
-    }
-  }
-
-  Future<void> uploadFile() async {
-    cv = await repository.uploadFile(pickedFile!);
-    applyFormValidate(name: name, email: email, cv: cv);
-  }
-
-  void cancelFileSelection() {
-    cv = "";
-    pickedFile = null;
-    emit(state);
-  }
-
 //* Post Job to the database
   Future<void> postjob() async {
     emit(JobsPostSubmittingState());
@@ -192,13 +128,6 @@ class JobsCubit extends Cubit<JobsState> {
         applications: []);
     await getAllJobs();
     emit(JobsPostedState());
-  }
-
-  //* Post Job application to the database
-  Future<void> applyToJob({required uid}) async {
-    emit(JobsApplySubmittingState());
-    await repository.applyToJob(uid: uid, name: name, email: email, cv: cv);
-    emit(JobsAppliedState());
   }
 
   Future<void> getAllJobs() async {

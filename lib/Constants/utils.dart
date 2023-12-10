@@ -1,4 +1,5 @@
 import 'package:avestan_test/Constants/constants.dart';
+import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_cubit.dart';
 import 'package:avestan_test/logic/jobs_cubit/jobs_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -136,6 +137,8 @@ Container textField(
         border: OutlineInputBorder(),
         // labelText: label,
         hintText: hint,
+        // contentPadding: EdgeInsets.only(
+        //     left: 10, right: 10, top: lines * 5, bottom: lines * 5),
       ),
     ),
   );
@@ -148,7 +151,7 @@ Container applyJobTextField(
     required String label,
     required String hint,
     required int lines,
-    required JobsCubit provider,
+    required ApplyJobCubit provider,
     required fun,
     required initValue,
     required TextInputType type}) {
@@ -176,6 +179,7 @@ Container applyJobTextField(
         border: OutlineInputBorder(),
         labelText: label,
         hintText: hint,
+        contentPadding: EdgeInsets.only(left: 10, right: 10),
       ),
     ),
   );
