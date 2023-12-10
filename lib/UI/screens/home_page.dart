@@ -1,6 +1,6 @@
 import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
-import 'package:avestan_test/UI/widgets/appBar.dart';
+import 'package:avestan_test/UI/widgets/home_page_app_bar.dart';
 import 'package:avestan_test/UI/widgets/drawer.dart';
 import 'package:avestan_test/UI/widgets/post_job_form.dart';
 import 'package:avestan_test/UI/widgets/posted_jobs.dart';
@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TabController? _controller;
-  ScrollController _scrollController = new ScrollController();
   int _currentIndex = 0;
 
   @override

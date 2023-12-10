@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
-import 'package:avestan_test/UI/widgets/appBar.dart';
+import 'package:avestan_test/UI/widgets/home_page_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 

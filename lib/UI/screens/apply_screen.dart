@@ -1,7 +1,7 @@
 import 'package:avestan_test/Constants/constants.dart';
 import 'package:avestan_test/Constants/utils.dart';
-import 'package:avestan_test/UI/widgets/appBar.dart';
 import 'package:avestan_test/UI/widgets/apply_jop.dart';
+import 'package:avestan_test/UI/widgets/normal_app_bar.dart';
 import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_cubit.dart';
 import 'package:avestan_test/logic/apply_jobs_cubit/apply_jobs_state.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +16,7 @@ class ApplyScreen extends StatelessWidget {
     final height = MediaQuery.of(buildcontext).size.height;
     final provider = BlocProvider.of<ApplyJobCubit>(buildcontext);
     return Scaffold(
-      appBar: appBar(
-        row: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios_new),
-              onPressed: () {
-                Navigator.of(buildcontext).pop();
-              },
-            ),
-            Flexible(
-                child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Apply",
-                      style: headingStyle(),
-                    )))
-          ],
-        ),
-      ),
+      appBar: normalAppBar(buildcontext, "Apply"),
       body: Container(
         padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         child: BlocBuilder<ApplyJobCubit, ApplyJobState>(
