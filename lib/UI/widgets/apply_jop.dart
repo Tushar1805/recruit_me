@@ -380,7 +380,7 @@ class CardDialog extends StatelessWidget {
                                 color: mainColor),
                           ),
                           Icon(
-                            Icons.upload,
+                            Icons.cloud_upload_outlined,
                             color: mainColor,
                           ),
                         ],
