@@ -19,6 +19,7 @@ class PostedJobs extends StatelessWidget {
           );
         } else {
           return ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemCount: provider.jobs!.length,
             itemBuilder: (context, index) {
               return Container(
@@ -99,7 +100,10 @@ class PostedJobs extends StatelessWidget {
                       ),
                       Spacer(),
                       GestureDetector(
-                        onTap: () async {},
+                        onTap: () async {
+                          Navigator.pushNamed(context, '/view',
+                              arguments: {"docId": provider.jobsUid![index]});
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           width: width * 0.9,

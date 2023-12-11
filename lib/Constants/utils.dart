@@ -144,6 +144,7 @@ Container textField(
   );
 }
 
+//* Apply to job textfield
 Container applyJobTextField(
     {required double width,
     required double height,
@@ -180,6 +181,41 @@ Container applyJobTextField(
         labelText: label,
         hintText: hint,
         contentPadding: EdgeInsets.only(left: 10, right: 10),
+      ),
+    ),
+  );
+}
+
+//* View Job Applications Decorations
+
+TextStyle normalVieWJobTextStyle(color) {
+  return TextStyle(
+    fontFamily: "Roboto",
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    color: color,
+  );
+}
+
+Padding statusText({required text, required color}) {
+  style(textcolor) => TextStyle(
+        fontFamily: "Roboto",
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: textcolor,
+      );
+  return Padding(
+    padding: EdgeInsets.only(left: 20),
+    child: RichText(
+      text: TextSpan(
+        text: "Status",
+        style: style(Colors.grey),
+        children: [
+          TextSpan(
+            text: text,
+            style: style(color),
+          ),
+        ],
       ),
     ),
   );

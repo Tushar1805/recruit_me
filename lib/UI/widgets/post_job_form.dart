@@ -21,6 +21,7 @@ class PostJob extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Container(
         padding: EdgeInsets.only(top: 10),
         child: Column(
