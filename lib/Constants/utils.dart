@@ -208,7 +208,7 @@ Padding statusText({required text, required color}) {
     padding: EdgeInsets.only(left: 20),
     child: RichText(
       text: TextSpan(
-        text: "Status",
+        text: "Status: ",
         style: style(Colors.grey),
         children: [
           TextSpan(

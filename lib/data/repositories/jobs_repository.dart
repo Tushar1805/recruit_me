@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:avestan_test/data/models/application_model.dart';
 import 'package:avestan_test/data/models/job_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -55,6 +56,21 @@ class JobsRepository {
     });
   }
 
+  Future<String?> uploadFile(PlatformFile pickedFile) async {
+    final path = "cv/${pickedFile.name}";
+    final file = File(pickedFile.path!);
+
+    final ref = firebaseStorage.ref().child(path);
+    uploadTask = ref.putFile(file);
+
+    final snapshot = await uploadTask!.whenComplete(() => {});
+
+    final url = await snapshot.ref.getDownloadURL();
+
+    print("Download Link: $url");
+    return url;
+  }
+
   Future<List<Job>> getAllJobs() async {
     return (await firestore
             .collection('jobs')
@@ -77,18 +93,13 @@ class JobsRepository {
     return list;
   }
 
-  Future<String?> uploadFile(PlatformFile pickedFile) async {
-    final path = "cv/${pickedFile.name}";
-    final file = File(pickedFile.path!);
+  Future<List<Application>> getAllApplications({required uid}) async {
+    DocumentSnapshot doc = await firestore.collection('jobs').doc(uid).get();
+    Map<String, dynamic>? m = doc.data();
 
-    final ref = firebaseStorage.ref().child(path);
-    uploadTask = ref.putFile(file);
-
-    final snapshot = await uploadTask!.whenComplete(() => {});
-
-    final url = await snapshot.ref.getDownloadURL();
-
-    print("Download Link: $url");
-    return url;
+    return List<Application>.generate(
+        doc.data()!["applications"].length,
+        (int index) =>
+            Application.fromJson(doc.data()!["applications"].elementAt(index)));
   }
 }

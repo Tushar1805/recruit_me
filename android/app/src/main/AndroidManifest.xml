@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.avestan_test">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
    <application
         android:label="avestan_test"
         android:icon="@mipmap/ic_launcher">
