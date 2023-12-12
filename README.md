@@ -1,6 +1,22 @@
-# avestan_test
+# Recruiting App
 
-A new Flutter project.
+It is a flutter test project to demonstrate my flutter skill. Here employers can post the jobs and job seekers can apply for the respective jobs.
+
+## Demo
+
+* Posting a Job
+
+<https://github.com/Tushar1805/avestan/assets/78633485/d52384e8-729e-47ea-a0a1-7e93d567141a/>
+
+* Apply to Jobs
+
+<https://github.com/Tushar1805/avestan/assets/78633485/a3eb958e-4324-42d6-84d5-e0dafa389215>
+
+## Setup
+
+Flutter SDK version - 2.2.0
+
+Recommended using FVM
 
 ## Getting Started
 
