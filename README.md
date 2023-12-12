@@ -1,6 +1,8 @@
 # Recruiting App
 
-It is a flutter test project to demonstrate my flutter skill. Here employers can post the jobs and job seekers can apply for the respective jobs.
+It is a flutter test project to demonstrate my flutter skills. Here employers can post the jobs and job seekers can apply for the respective jobs.
+
+BLoC/Cubit is used for the state management and Firebase is used as the database. Using firebase storage for storing files.
 
 ## Demo
 
